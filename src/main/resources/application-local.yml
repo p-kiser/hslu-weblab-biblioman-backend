@@ -1,0 +1,7 @@
+#default configuration for local development
+spring:
+  data:
+    mongodb:
+      uri: mongodb://localhost/biblioman
+server:
+  port: 8080

@@ -1,0 +1,6 @@
+#default configuration for all profiles
+spring:
+  application:
+    name: biblio-backend
+  main:
+    banner-mode: "off"
