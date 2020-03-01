@@ -6,9 +6,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 /**
  * This abstract basic class contains all common attributes.
@@ -27,18 +25,13 @@ public abstract class Basic<T> {
     @NotNull
     @NotEmpty
     private String tenant;
-    @NotNull
-    @NotEmpty
-    @Size(min = 36, max = 36)
-    private String transaction;
-    private String encryptionKey;
+
 
     /**
-     * Default constructor, set the id with a {@link UUID#randomUUID()} and set the same id for the transaction.
+     * Default constructor, set the id with a {@link UUID#randomUUID()}
      */
     protected Basic() {
         id = UUID.randomUUID().toString();
-        transaction = id;
     }
 
     /**
@@ -137,52 +130,6 @@ public abstract class Basic<T> {
         return (T) this;
     }
 
-    /**
-     * Return the customer transaction id of the node. This is not the primary key of the node.
-     *
-     * @return The customer transaction of the node.
-     */
-    public UUID getTransaction() {
-        if (transaction != null && !transaction.isEmpty()) {
-            return UUID.fromString(transaction);
-        }
-        return null;
-    }
-
-    /**
-     * Set the customer transaction id. The default value is set to the {@link #getId()}.
-     *
-     * @param transaction The logical customer reference id (not nullable).
-     * @return The reference to this object.
-     */
-    public T setTransaction(UUID transaction) {
-        if (transaction == null) {
-            throw new IllegalArgumentException("The transaction must be set.");
-        }
-        this.transaction = transaction.toString();
-        return (T) this;
-    }
-
-    /**
-     * Return the encryption key.
-     *
-     * @return The encryption key.
-     */
-    public String getEncryptionKey() {
-        return encryptionKey;
-    }
-
-    /**
-     * Set the encryption key value.
-     *
-     * @param encryptionKey The value of the encryption key.
-     * @return The reference to this object.
-     */
-    public T setEncryptionKey(String encryptionKey) {
-        this.encryptionKey = encryptionKey;
-        return (T) this;
-    }
-
     @Override
     public boolean equals(Object other) {
         if (this == other) {
@@ -212,7 +159,6 @@ public abstract class Basic<T> {
         return "Basic{"
                 + "id='" + id + '\''
                 + ", version=" + version
-                + ", transaction='" + transaction + '\''
                 + '}';
     }
 }

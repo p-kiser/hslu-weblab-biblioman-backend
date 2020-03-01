@@ -4,13 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.*;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * The auditing object has just a few attributes, but offers a generic way to track different auditing status. Be aware that you don't include some client data.
+ * The Book object contains basic information about books.
  *
  * @author pkiser
  */
@@ -19,41 +18,87 @@ import java.util.Map;
 public class Book extends Basic<Book> {
     @NotNull
     @NotEmpty
-    private String action;
+    private String title;
     @NotNull
-    private String status;
+    private String[] authors;
+
+    private String publisher;
+    private short edition;
+    @Min(-3000)
+    @Max(3000)
+    private int year;
+    @Min(1)
+    private String series;
+    private String type;
+    @Pattern(regexp = "[0-9]*[-| ][0-9]*[-| ][0-9]*[-| ][0-9]*[-| ][0-9]*")
+    private String isbn;
+    private String description;
+    @DecimalMin(value="0.0")
+    @DecimalMax(value="5.0")
+    private float rating;
+
+
+
+
+
+
+
+
+
     private Map<String, String> extras;
 
     /**
-     * Return the action of the auditing entry.
+     * Return the title of the book entry.
      *
-     * @return The action text of the auditing entry.
+     * @return The title text of the book entry.
      */
-    public String getAction() {
-        return action;
+    public String getTitle() {
+        return title;
     }
 
     /**
-     * Set the action of the auditing entry.
+     * Set the title of the book entry.
      *
-     * @param action Set the action text of the auditing entry text.
+     * @param title Set the title text of the book entry text.
      * @return The reference to this object.
      * @throws IllegalArgumentException If the argument is null.
      */
-    public Book setAction(String action) {
-        if (action == null || action.isEmpty()) {
-            throw new IllegalArgumentException("The action must be set.");
+    public Book setTitle(String title) {
+        if (title == null || title.isEmpty()) {
+            throw new IllegalArgumentException("The title must be set.");
         }
-        this.action = action;
+        this.title = title;
         return this;
     }
 
+    /**
+     * Return the authors of the book entry.
+     *
+     * @return The auditing entry author.
+     */
+    public String[] getAuthors() {
+        return authors;
+    }
 
+    /**
+     * Set the authors of the book entry.
+     *
+     * @param authors The author of the auditing entry.
+     * @return The reference to this object.
+     * @throws IllegalArgumentException If the argument is null.
+     */
+    public Book setAuthors(String[] authors) {
+        if (authors == null) {
+            throw new IllegalArgumentException("The author(s) must be set.");
+        }
+        this.authors = authors;
+        return this;
+    }
 
     /**
      * Return the extras.
      *
-     * @return The extras of an empty map.
+     * @return The extras or an empty map.
      */
     public Map<String, String> getExtras() {
         if (extras == null) {
@@ -75,8 +120,6 @@ public class Book extends Basic<Book> {
         return this;
     }
 
-
-
     /**
      * Override the whole extra map.
      *
@@ -88,27 +131,67 @@ public class Book extends Basic<Book> {
         return this;
     }
 
-    /**
-     * Return the status of the auditing entry.
-     *
-     * @return The auditing entry status.
-     */
-    public String getStatus() {
-        return status;
+    public String getPublisher() {
+        return publisher;
     }
 
-    /**
-     * Set the status of the auditing entry.
-     *
-     * @param status The status of the auditing entry.
-     * @return The reference to this object.
-     * @throws IllegalArgumentException If the argument is null.
-     */
-    public Book setStatus(String status) {
-        if (status == null) {
-            throw new IllegalArgumentException("The status must be set.");
-        }
-        this.status = status;
-        return this;
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getSeries() {
+        return series;
+    }
+
+    public void setSeries(String series) {
+        this.series = series;
+    }
+
+    public short getEdition() {
+        return edition;
+    }
+
+    public void setEdition(short edition) {
+        this.edition = edition;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
     }
 }
