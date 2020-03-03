@@ -3,6 +3,7 @@ package com.pkiser.weblab.biblioman.model;
 
 import org.springframework.data.annotation.*;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.Date;
 import java.util.UUID;
@@ -12,6 +13,7 @@ import java.util.UUID;
  *
  * @author pkiser
  */
+
 @Document(collection = "books")
 public final class BookNode extends Book {
 

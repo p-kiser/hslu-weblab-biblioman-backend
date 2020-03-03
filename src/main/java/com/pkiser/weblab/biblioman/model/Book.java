@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import javax.validation.constraints.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * The Book object contains basic information about books.
@@ -22,6 +23,7 @@ public class Book extends Basic<Book> {
     @NotNull
     private String[] authors;
 
+    private UUID key;
     private String publisher;
     private short edition;
     @Min(-3000)
@@ -193,5 +195,9 @@ public class Book extends Basic<Book> {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    public UUID getKey() {
+        return super.getId();
     }
 }
